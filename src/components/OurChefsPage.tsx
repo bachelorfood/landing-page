@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Star, Heart, Volume2, VolumeX, Play, Pause, ArrowRight, UserCheck, ShieldCheck, Flame } from 'lucide-react';
+import { Star, Heart, Volume2, VolumeX, Play, ArrowRight, UserCheck, ShieldCheck, Flame, Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
 
 interface Chef {
   id: number;
@@ -26,7 +25,7 @@ const CHEFS: Chef[] = [
     experience: '12 Years',
     orders: '18,400+',
     location: 'Hyderabad',
-    bio: 'Fatima is a culinary custodian keeping traditional Nizami flavours alive. Her Dum Biryani is cooked in small brass pots, utilizing slow charcoal heat (Dum) to yield rich, fragrant grains of rice.'
+    bio: 'Fatima is a custodian of traditional Nizami flavors. Her Dum Biryani is cooked in small brass pots, utilizing slow charcoal heat (Dum) to yield rich, fragrant grains of rice.'
   },
   {
     id: 2,
@@ -48,7 +47,7 @@ const CHEFS: Chef[] = [
     experience: '8 Years',
     orders: '22,100+',
     location: 'Chennai',
-    bio: 'From thin ghee roasts to fluffy steamed idlis, Meenakshi grinding batters fresh daily. Her home kitchen follows age-old fermentation cycles passed down through three generations.'
+    bio: 'From thin ghee roasts to fluffy steamed idlis, Meenakshi grinds her batters fresh daily. Her home kitchen follows age-old fermentation cycles passed down through three generations.'
   },
   {
     id: 4,
@@ -66,30 +65,33 @@ const CHEFS: Chef[] = [
 const REELS = [
   {
     id: 1,
-    chef: 'Chef Selvan K.',
-    title: 'Sizzling Chettinad Spice Tempering',
-    location: 'Tamil Earthenware Kitchen',
-    type: 'html5',
-    url: 'https://assets.mixkit.co/videos/preview/mixkit-spices-falling-into-a-bowl-41607-large.mp4',
-    likes: '4.8k'
+    chef: 'Bachelor Food India',
+    title: 'Tired of hostel food 😭 We got you 🫵🏻',
+    location: 'Official Campaign Reel',
+    url: '/assets/hostel_food.mp4',
+    likes: 2450,
+    igUrl: 'https://www.instagram.com/bachelorfood_india/',
+    clickAction: 'redirect'
   },
   {
     id: 2,
     chef: 'Chef Fatima B.',
     title: 'Layering Hyderabadi Dum Biryani',
     location: 'Nizami Slow Kitchen',
-    type: 'instagram',
-    url: 'https://www.instagram.com/reel/DV0mZ5Qk4ae/embed',
-    likes: '12.4k'
+    url: 'https://player.vimeo.com/external/435674703.sd.mp4?s=7fdb2c5b1b46747d25e834ef19a16f2c069270e5&profile_id=165&oauth2_token_id=57447761',
+    likes: 1240,
+    igUrl: 'https://www.instagram.com/reel/DV0mZ5Qk4ae/?igsh=cDlod2V2NGxwMThx',
+    clickAction: 'play'
   },
   {
     id: 3,
-    chef: 'Chef Meenakshi S.',
-    title: 'Art of Pouring Meter Filter Coffee',
-    location: 'Traditional Tamil Kitchen',
-    type: 'html5',
-    url: 'https://assets.mixkit.co/videos/preview/mixkit-sizzling-vegetables-in-a-wok-41603-large.mp4',
-    likes: '3.9k'
+    chef: 'Chef Selvan K.',
+    title: 'Sizzling Chettinad Spice Tempering',
+    location: 'Tamil Earthenware Kitchen',
+    url: 'https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054e082a5c2d3a9d9841f3e79b5c3ff&profile_id=139&oauth2_token_id=57447761',
+    likes: 480,
+    igUrl: null,
+    clickAction: 'play'
   }
 ];
 
@@ -97,17 +99,15 @@ export default function OurChefsPage() {
   const [activeTab, setActiveTab] = useState<'all' | 'tamil' | 'north'>('all');
   const [muted, setMuted] = useState(true);
   const [playingId, setPlayingId] = useState<number | null>(1);
-  const [reelLikes, setReelLikes] = useState<{ [key: number]: number }>({ 1: 420, 2: 1240, 3: 310 });
+  const [reelLikes, setReelLikes] = useState<{ [key: number]: number }>({ 1: 2450, 2: 1240, 3: 480 });
   const [likedReels, setLikedReels] = useState<{ [key: number]: boolean }>({});
 
   const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
 
   useEffect(() => {
-    // Scroll to top
     window.scrollTo(0, 0);
     document.title = "Our Verified Home Chefs — Bachelor Food";
     
-    // SEO description update
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute('content', 'Meet the verified local chefs of Bachelor Food. Explore real home kitchens cooking authentic Tamil Chettinad, Hyderabadi Nizami, and traditional North Indian dishes.');
@@ -147,6 +147,11 @@ export default function OurChefsPage() {
   }, []);
 
   const togglePlay = (id: number) => {
+    const reel = REELS.find(r => r.id === id);
+    if (reel && reel.clickAction === 'redirect' && reel.igUrl) {
+      window.open(reel.igUrl, '_blank');
+      return;
+    }
     const video = videoRefs.current[id];
     if (!video) return;
     if (video.paused) {
@@ -230,14 +235,14 @@ export default function OurChefsPage() {
       </section>
 
       {/* ── SCROLL-SNAPPED VIDEO REELS ── */}
-      <section className="py-20 bg-bf-charcoal text-white overflow-hidden border-b border-white/5">
+      <section className="py-20 bg-brand-charcoal text-white overflow-hidden border-b border-white/5">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-bf-orange uppercase text-xs font-bold tracking-widest mb-3 block">CHEF STORIES</span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold mb-5">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 text-white">
               Watch Our Chefs In Action
             </h2>
-            <p className="text-white/60 text-sm sm:text-base">
+            <p className="text-white/70 text-sm sm:text-base">
               Scroll or swipe through our kitchen reels to watch our verified home chefs prepare traditional curries, freshly ground idli batters, and hand-rolled flatbreads in real-time.
             </p>
           </div>
@@ -266,41 +271,51 @@ export default function OurChefsPage() {
                     data-reel-id={reel.id}
                     className="reel-slide w-full h-full snap-start snap-always relative flex-shrink-0"
                   >
-                    {reel.type === 'html5' ? (
-                      <div className="relative w-full h-full cursor-pointer" onClick={() => togglePlay(reel.id)}>
-                        <video
-                          ref={el => videoRefs.current[reel.id] = el}
-                          src={reel.url}
-                          className="w-full h-full object-cover"
-                          loop
-                          muted={muted}
-                          playsInline
-                        />
-                        
-                        {/* Play/Pause Overlay indicator */}
-                        {playingId !== reel.id && (
-                          <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                            <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
-                              <Play size={24} className="fill-white translate-x-0.5" />
-                            </div>
+                    <div className="relative w-full h-full cursor-pointer" onClick={() => togglePlay(reel.id)}>
+                      <video
+                        ref={el => videoRefs.current[reel.id] = el}
+                        src={reel.url}
+                        className="w-full h-full object-cover"
+                        loop
+                        muted={muted}
+                        playsInline
+                      />
+                      
+                      {/* Play/Pause Overlay indicator */}
+                      {playingId !== reel.id && reel.clickAction !== 'redirect' && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                          <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white animate-pulse">
+                            <Play size={24} className="fill-white translate-x-0.5" />
                           </div>
-                        )}
-                      </div>
-                    ) : (
-                      /* Instagram Reel Embed */
-                      <div className="w-full h-full bg-[#181818] flex items-center justify-center relative">
-                        <iframe
-                          src={reel.url}
-                          className="w-full h-full border-none rounded-none"
-                          scrolling="no"
-                          allowTransparency
-                          allow="autoplay"
-                        />
-                        <div className="absolute top-12 left-5 z-20">
-                          <span className="badge badge-orange">Instagram Story</span>
                         </div>
-                      </div>
-                    )}
+                      )}
+
+                      {/* Tap to Instagram Redirect Overlay */}
+                      {reel.clickAction === 'redirect' && (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/35 gap-3 p-4">
+                          <div className="w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 flex items-center justify-center text-white shadow-xl animate-bounce">
+                            <Instagram size={26} className="text-white" />
+                          </div>
+                          <span className="text-white font-bold text-[10px] uppercase tracking-widest bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
+                            Tap to view on Instagram 🫵🏻
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Instagram Reel Button Overlay */}
+                      {reel.igUrl && reel.clickAction !== 'redirect' && (
+                        <a 
+                          href={reel.igUrl} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="absolute top-16 left-5 z-30 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white font-bold text-[10px] tracking-wider uppercase flex items-center gap-1.5 shadow-lg border border-white/10 hover:scale-105 transition-transform"
+                        >
+                          <Instagram size={12} />
+                          <span>View original Reel</span>
+                        </a>
+                      )}
+                    </div>
 
                     {/* Left overlay details */}
                     <div className="absolute bottom-6 left-5 right-14 z-20 pointer-events-none text-left">

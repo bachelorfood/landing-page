@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import gsap from 'gsap';
 
 /* ── Bachelor Food inline SVG logo (matches the B+cloche brand) ── */
 function BFLogo({ size = 36 }: { size?: number }) {
@@ -32,6 +33,9 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [rippleActive, setRippleActive] = useState(false);
+  const [rippleCoords, setRippleCoords] = useState({ x: 0, y: 0 });
+  
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -74,6 +78,35 @@ export default function Navbar() {
     setMobileOpen(false);
   };
 
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Get logo position for ripple origin
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    
+    setRippleCoords({ x, y });
+    setRippleActive(true);
+
+    // Spring bounce animation on the logo itself using GSAP
+    gsap.fromTo(e.currentTarget.querySelector('.logo-wrap'),
+      { scale: 0.95, rotate: -4 },
+      { scale: 1.25, rotate: 4, duration: 0.15, yoyo: true, repeat: 1, ease: 'power2.out' }
+    );
+
+    e.preventDefault();
+
+    // Trigger full screen visual wipe
+    setTimeout(() => {
+      navigate('/');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      (window as any).lenis?.scrollTo(0, { immediate: true });
+    }, 450);
+
+    setTimeout(() => {
+      setRippleActive(false);
+    }, 1000);
+  };
+
   return (
     <>
       <motion.header
@@ -89,11 +122,11 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <motion.div whileHover={{ scale: 1.05 }} transition={{ type: 'spring', stiffness: 300 }}>
+          <Link to="/" onClick={handleLogoClick} className="flex items-center gap-3 group">
+            <div className="logo-wrap transition-transform duration-300">
               <BFLogo size={40} />
-            </motion.div>
-            <div className="leading-none">
+            </div>
+            <div className="leading-none text-left">
               <span className="block font-serif text-xl font-bold text-bf-ink leading-none tracking-tight">
                 Bachelor Food
               </span>
@@ -187,6 +220,49 @@ export default function Navbar() {
                 </a>
               </motion.div>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Brand Page Transition Wipe Ripple ── */}
+      <AnimatePresence>
+        {rippleActive && (
+          <motion.div
+            initial={{ 
+              clipPath: `circle(0px at ${rippleCoords.x}px ${rippleCoords.y}px)` 
+            }}
+            animate={{ 
+              clipPath: `circle(150% at ${rippleCoords.x}px ${rippleCoords.y}px)` 
+            }}
+            exit={{ 
+              opacity: 0,
+              transition: { duration: 0.4, ease: 'easeInOut' }
+            }}
+            transition={{ 
+              duration: 0.55, 
+              ease: [0.76, 0, 0.24, 1] 
+            }}
+            className="fixed inset-0 bg-bf-orange z-[9999] pointer-events-none flex items-center justify-center"
+          >
+            {/* Pulsing White Logo in the center of the screen during wipe */}
+            <motion.div
+              initial={{ scale: 0.7, opacity: 0 }}
+              animate={{ scale: 1.1, opacity: 1 }}
+              exit={{ scale: 1.3, opacity: 0 }}
+              transition={{ delay: 0.1, duration: 0.4 }}
+              className="flex flex-col items-center gap-4 text-white"
+            >
+              <svg width="84" height="84" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="filter drop-shadow-lg">
+                <rect width="64" height="64" rx="13" fill="white"/>
+                <path d="M15 13H36C42.627 13 48 18.373 48 25C48 28.314 46.657 31.314 44.485 33.5C46.657 35.686 48 38.686 48 42C48 48.627 42.627 54 36 54H15V13Z" fill="#F4601A"/>
+                <rect x="22" y="20" width="16" height="12" rx="6" fill="white"/>
+                <rect x="22" y="34" width="17" height="13" rx="6.5" fill="white"/>
+                <ellipse cx="33" cy="40.5" rx="7.5" ry="2" fill="#F4601A"/>
+                <path d="M25.5 40.5 C25.5 35.5 29 32 33 32 C37 32 40.5 35.5 40.5 40.5" fill="#F4601A"/>
+                <circle cx="33" cy="31.5" r="1.5" fill="white"/>
+              </svg>
+              <h2 className="font-serif text-3xl font-extrabold tracking-tight">Bachelor Food</h2>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
