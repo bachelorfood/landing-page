@@ -134,7 +134,7 @@ export default function Hero() {
       </div>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="grid lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-[1.25fr_0.75fr] xl:grid-cols-[1.3fr_0.7fr] gap-10 lg:gap-16 items-start">
 
           {/* ── LEFT ── */}
           <div className="pt-8 lg:pt-14 pb-10">
