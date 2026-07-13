@@ -79,7 +79,6 @@ export default function Navbar() {
   };
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // Get logo position for ripple origin
     const rect = e.currentTarget.getBoundingClientRect();
     const x = rect.left + rect.width / 2;
     const y = rect.top + rect.height / 2;
@@ -87,7 +86,6 @@ export default function Navbar() {
     setRippleCoords({ x, y });
     setRippleActive(true);
 
-    // Spring bounce animation on the logo itself using GSAP
     gsap.fromTo(e.currentTarget.querySelector('.logo-wrap'),
       { scale: 0.95, rotate: -4 },
       { scale: 1.25, rotate: 4, duration: 0.15, yoyo: true, repeat: 1, ease: 'power2.out' }
@@ -95,7 +93,6 @@ export default function Navbar() {
 
     e.preventDefault();
 
-    // Trigger full screen visual wipe
     setTimeout(() => {
       navigate('/');
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -149,7 +146,7 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center lg:gap-2 xl:gap-3">
-            <a href="#menu" className="btn btn-outline btn-sm" onClick={(e) => scrollTo('#menu', e)}>Order Now</a>
+            <a href="#menu" className="btn btn-outline btn-sm" onClick={(e) => scrollTo('#menu', e)}>View Menu</a>
             <a href="#download" className="btn btn-primary btn-sm" onClick={(e) => scrollTo('#download', e)}>
               Get the App
             </a>

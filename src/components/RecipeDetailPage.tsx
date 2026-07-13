@@ -1,52 +1,49 @@
+import { motion } from 'motion/react';
 import { useParams, Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { Timer, Users, Flame, ChefHat, ArrowLeft, Heart, Share2, Star } from 'lucide-react';
 import { recipes } from '../data';
-import { Timer, ChefHat, Users, Flame, ArrowLeft, Heart, Share2, CheckCircle2 } from 'lucide-react';
-import { useRef, useState } from 'react';
 
 export default function RecipeDetailPage() {
   const { id } = useParams();
   const recipe = recipes.find(r => r.id === id);
-  const ref = useRef(null);
-  
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
-  const [activeStep, setActiveStep] = useState(0);
-
-  if (!recipe) return (
-    <div className="min-h-screen flex items-center justify-center bg-brand-sand">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold mb-4">Recipe Not Found</h2>
-        <Link to="/" className="text-brand-terracotta font-bold uppercase tracking-widest text-sm">Return Home</Link>
+  if (!recipe) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-brand-sand">
+        <div className="text-center">
+          <h2 className="text-3xl font-display font-bold text-brand-charcoal mb-4">Recipe Not Found</h2>
+          <Link to="/" className="btn btn-primary">Back to Kitchen</Link>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 
   return (
-    <div className="bg-brand-sand min-h-screen" ref={ref}>
-      {/* Hero Section */}
-      <div className="relative h-[70vh] md:h-[80vh] overflow-hidden bg-brand-charcoal">
-        <motion.div style={{ y, opacity }} className="absolute inset-0">
+    <div className="min-h-screen bg-brand-sand">
+      {/* Hero Header Banner */}
+      <div className="relative h-[65vh] min-h-[450px] bg-brand-charcoal overflow-hidden flex items-end pb-12 sm:pb-20">
+        <div className="absolute inset-0">
           <img 
             src={recipe.image} 
             alt={recipe.title} 
-            className="w-full h-full object-cover" 
-            referrerPolicy="no-referrer" 
+            className="w-full h-full object-cover opacity-60"
+            referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-brand-charcoal/50 to-transparent" />
-        </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-brand-charcoal/45 to-transparent" />
+        </div>
         
-        <div className="absolute inset-0 pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col justify-end">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-left">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Link to="/" className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors mb-10 group">
-              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-brand-charcoal transition-colors">
-                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            <Link 
+              to="/" 
+              className="inline-flex items-center gap-3 text-white/60 hover:text-white mb-8 transition-colors group"
+            >
+              <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:-translate-x-1 transition-transform">
+                <ArrowLeft className="w-4 h-4" />
               </div>
               <span className="text-xs font-bold uppercase tracking-[0.2em]">Back to Kitchen</span>
             </Link>
@@ -76,7 +73,7 @@ export default function RecipeDetailPage() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="bg-white rounded-[40px] p-8 md:p-10 shadow-2xl shadow-brand-charcoal/5 border border-zinc-200/60"
             >
-              <div className="grid grid-cols-2 gap-8 mb-10">
+              <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-10">
                 <div className="flex flex-col items-center text-center p-4 rounded-2xl bg-brand-sand border border-zinc-100">
                   <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm mb-3 text-brand-terracotta">
                      <Timer className="w-4 h-4" />
@@ -121,67 +118,81 @@ export default function RecipeDetailPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="bg-white rounded-[40px] p-8 md:p-10 border border-zinc-200/60 shadow-xl shadow-brand-charcoal/5"
+              className="bg-white rounded-[40px] p-8 md:p-10 border border-zinc-200/60 shadow-xl shadow-brand-charcoal/5 text-left"
             >
-              <h3 className="text-2xl font-display font-bold mb-8 text-brand-charcoal">Ingredients</h3>
-              <div className="space-y-3">
+              <h3 className="text-xl font-display font-bold text-brand-charcoal mb-6 flex items-center gap-3">
+                <ChefHat className="w-5 h-5 text-brand-terracotta" />
+                Meet the Chef
+              </h3>
+              <div className="flex items-center gap-4 mb-6">
+                <img 
+                  src={`https://picsum.photos/seed/${recipe.author.replace(' ', '')}/100/100`} 
+                  alt={recipe.author} 
+                  className="w-16 h-16 rounded-2xl object-cover border border-zinc-100"
+                  referrerPolicy="no-referrer"
+                />
+                <div>
+                  <h4 className="font-bold text-lg text-brand-charcoal">{recipe.author}</h4>
+                  <div className="flex items-center gap-1 mt-1">
+                    <Star className="w-3.5 h-3.5 fill-brand-gold text-brand-gold" />
+                    <span className="text-xs font-bold text-zinc-600">4.9 · Verified Chef</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-zinc-500 text-sm leading-relaxed mb-6 font-light">
+                Every order supports {recipe.author} and helps sustain authentic regional Indian cooking heritage.
+              </p>
+              <Link to="/chefs" className="btn btn-outline w-full justify-center text-xs uppercase tracking-wider py-4 rounded-2xl">
+                Chef Profile & Reels
+              </Link>
+            </motion.div>
+          </div>
+
+          <div className="lg:col-span-8 space-y-12 text-left">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="bg-white rounded-[40px] p-8 md:p-12 border border-zinc-200/60 shadow-xl shadow-brand-charcoal/5"
+            >
+              <h2 className="text-3xl font-display font-bold text-brand-charcoal mb-8 border-b border-zinc-100 pb-6">Ingredients</h2>
+              <div className="grid sm:grid-cols-2 gap-4">
                 {recipe.ingredients.map((ing, idx) => (
                   <div key={idx} className="flex items-center gap-4 p-4 rounded-2xl bg-brand-sand border border-transparent hover:border-brand-terracotta/20 hover:bg-white hover:shadow-sm transition-all group cursor-pointer">
                     <div className="w-4 h-4 rounded-full border-2 border-zinc-300 group-hover:border-brand-terracotta flex items-center justify-center transition-colors">
-                      <div className="w-2 h-2 rounded-full bg-brand-terracotta opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-terracotta opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-                    <span className="font-medium text-brand-charcoal text-sm">{ing.item}</span>
-                    <span className="ml-auto text-sm font-bold text-brand-terracotta bg-brand-terracotta/10 px-3 py-1 rounded-lg">
-                      {ing.amount} {ing.unit}
-                    </span>
+                    <div>
+                      <span className="block font-bold text-brand-charcoal text-sm">{ing.item}</span>
+                      <span className="block text-xs text-zinc-400 font-medium">{ing.amount} {ing.unit}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="bg-white rounded-[40px] p-8 md:p-12 border border-zinc-200/60 shadow-xl shadow-brand-charcoal/5"
+            >
+              <h2 className="text-3xl font-display font-bold text-brand-charcoal mb-10 border-b border-zinc-100 pb-6">Preparation Steps</h2>
+              <div className="relative border-l-2 border-zinc-100 pl-6 sm:pl-8 ml-4 space-y-12">
+                {recipe.instructions.map((step, idx) => (
+                  <div key={idx} className="relative group">
+                    <div className="absolute -left-[41px] sm:-left-[49px] w-10 h-10 sm:w-12 sm:h-12 rounded-full border-4 border-white bg-brand-sand flex items-center justify-center shadow-lg md:mx-auto relative z-10 group-hover:scale-110 group-hover:bg-brand-charcoal transition-all duration-300">
+                      <span className="font-display font-bold text-brand-terracotta text-sm sm:text-base group-hover:text-brand-gold transition-colors">{step.step}</span>
+                    </div>
+                    <div className="w-full bg-white p-6 md:p-8 rounded-[32px] border border-zinc-200/60 shadow-sm group-hover:shadow-xl group-hover:border-brand-terracotta/30 transition-all duration-500">
+                      <p className="text-zinc-600 leading-relaxed font-light text-base sm:text-lg">{step.text}</p>
+                    </div>
                   </div>
                 ))}
               </div>
             </motion.div>
           </div>
-
-          <div className="lg:col-span-8 space-y-12">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              <div className="flex items-center gap-6 mb-12">
-                <h3 className="text-4xl md:text-5xl font-display font-bold text-brand-charcoal">
-                  Execution Strategy
-                </h3>
-                <div className="flex-1 h-px bg-zinc-200 mt-2" />
-              </div>
-              
-              <div className="space-y-6 relative before:absolute before:inset-0 before:ml-[35px] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-zinc-200 before:to-transparent">
-                {recipe.instructions.map((step, idx) => (
-                  <motion.div 
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ delay: idx * 0.1, duration: 0.6 }}
-                    className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active ${activeStep === idx ? 'opacity-100' : 'opacity-60 hover:opacity-100'} transition-opacity duration-500 cursor-pointer`}
-                    onClick={() => setActiveStep(idx)}
-                  >
-                    
-                    <div className="w-16 h-16 shrink-0 rounded-full border-4 border-white bg-brand-sand flex items-center justify-center shadow-lg md:mx-auto relative z-10 group-hover:scale-110 group-hover:bg-brand-charcoal transition-all duration-300">
-                      <span className="font-display font-bold text-xl text-brand-charcoal group-hover:text-white transition-colors">{step.step}</span>
-                    </div>
-
-                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 md:p-8 rounded-[32px] border border-zinc-200/60 shadow-sm group-hover:shadow-xl group-hover:border-brand-terracotta/30 transition-all duration-500">
-                      <div className="flex flex-col gap-2">
-                        <h4 className="text-xl font-bold text-brand-charcoal">Step {step.step}</h4>
-                        <p className="text-zinc-600 leading-relaxed font-light">
-                          {step.text}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+          
         </div>
       </div>
     </div>

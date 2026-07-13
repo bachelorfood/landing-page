@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Clock, Flame, ShoppingBag, Star } from 'lucide-react';
+import { ArrowRight, Clock, Flame, Star } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -78,10 +78,16 @@ export default function Features() {
             <div key={dish.id} className="food-card group">
               <div className="relative h-56 overflow-hidden">
                 <img src={dish.image} alt={dish.name}
-                  className="food-img w-full h-full object-cover"
+                  className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
                   referrerPolicy="no-referrer" />
-                <div className="dish-overlay" />
-                <span className={`badge ${dish.tagStyle} absolute top-3 left-3`}>{dish.tag}</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Badge */}
+                <div className="absolute top-3 left-3">
+                  <span className={`badge ${dish.tagStyle}`}>{dish.tag}</span>
+                </div>
+
+                {/* Spicy tag */}
                 {dish.spicy && (
                   <span className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
                     <Flame size={13} className="text-bf-orange" />
@@ -103,11 +109,20 @@ export default function Features() {
                   <span className="w-1 h-1 rounded-full bg-bf-border" />
                   <span>Home-cooked fresh</span>
                 </div>
+                
+                {/* Available on App details instead of pricing/ordering */}
                 <div className="flex items-center justify-between pt-4 border-t border-bf-border-light">
-                  <span className="font-serif text-2xl font-bold text-bf-orange">₹{dish.price}</span>
-                  <motion.button whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.94 }}
-                    className="btn btn-primary btn-sm">
-                    <ShoppingBag size={13} />Order
+                  <span className="text-[10px] text-bf-muted font-bold uppercase tracking-wider">Available on App</span>
+                  <motion.button 
+                    onClick={() => {
+                      const el = document.querySelector('#download');
+                      if (el) (window as any).lenis?.scrollTo(el, { duration: 1.2 });
+                    }}
+                    whileHover={{ scale: 1.05 }} 
+                    whileTap={{ scale: 0.95 }}
+                    className="btn btn-primary btn-sm px-4"
+                  >
+                    Get App
                   </motion.button>
                 </div>
               </div>
@@ -115,9 +130,18 @@ export default function Features() {
           ))}
         </div>
 
+        {/* View Full Menu CTA linked to download */}
         <div className="text-center mt-14">
-          <a href="#" className="btn btn-outline btn-lg inline-flex">
-            View Full Menu <ArrowRight size={17} />
+          <a 
+            href="#download" 
+            className="btn btn-outline btn-lg inline-flex"
+            onClick={(e) => {
+              e.preventDefault();
+              const el = document.querySelector('#download');
+              if (el) (window as any).lenis?.scrollTo(el, { duration: 1.2 });
+            }}
+          >
+            Get the App for Full Menu <ArrowRight size={17} />
           </a>
         </div>
       </div>

@@ -18,16 +18,18 @@ function BFLogoSmall() {
 
 const LINKS = {
   Company:  [['About Us','#'],['Our Mission','#'],['Press & Media','#'],['Careers','#'],['Blog','#']],
-  Services: [['Order Food','#menu'],['Our Chefs','/chefs'],['Party Orders','#'],['Corporate Meals','#'],['Gift Cards','#']],
+  Services: [['View Menu','#menu'],['Our Chefs','/chefs'],['Party Orders','#'],['Corporate Meals','#'],['Gift Cards','#']],
   'Join Us':[['Become a Chef','#'],['Delivery Partner','#'],['Franchise','#'],['Affiliate Program','#']],
-  Support:  [['Help Center','#'],['Track Order','#'],['Refund Policy','/terms#refunds'],['Privacy Policy','/terms#privacy'],['Terms & Conditions','/terms']],
+  Support:  [['Help Center','#'],['Help & Support','#'],['Refund Policy','/terms#refunds'],['Privacy Policy','/terms#privacy'],['Terms & Conditions','/terms']],
 };
+
 const SOCIALS = [
-  { Icon: Instagram, label:'Instagram', href:'#' },
+  { Icon: Instagram, label:'Instagram', href:'https://www.instagram.com/bachelorfood_india/' },
   { Icon: Twitter,   label:'Twitter',   href:'#' },
   { Icon: Facebook,  label:'Facebook',  href:'#' },
   { Icon: Youtube,   label:'YouTube',   href:'#' },
 ];
+
 const CITIES = ['Bangalore','Chennai','Hyderabad','Mumbai','Delhi','Coimbatore','Kochi','Pune','Trichy','Madurai'];
 
 export default function Footer() {
@@ -70,7 +72,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-2.5">
               {SOCIALS.map(({ Icon, label, href }) => (
-                <a key={label} href={href} aria-label={label}
+                <a key={label} href={href} aria-label={label} target={href !== '#' ? '_blank' : undefined} rel={href !== '#' ? 'noopener noreferrer' : undefined}
                   className="w-9 h-9 rounded-xl bg-white/6 border border-white/8 flex items-center justify-center text-white/38 hover:bg-bf-orange/20 hover:text-bf-orange hover:border-bf-orange/30 transition-all">
                   <Icon size={15} />
                 </a>

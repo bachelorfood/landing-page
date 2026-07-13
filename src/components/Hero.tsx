@@ -231,7 +231,7 @@ export default function Hero() {
             </div>
 
             {/* Floating Card 1 — Delivery */}
-            <div ref={card1Ref} className="floating-card absolute top-14 -right-1 sm:-right-4 lg:-right-10 flex items-center gap-3 opacity-0 text-left">
+            <div ref={card1Ref} className="floating-card absolute top-14 -right-1 sm:-right-4 lg:-right-10 flex items-center gap-3 opacity-0 text-left scale-85 sm:scale-100 origin-right">
               <div className="icon-box ib-orange flex-shrink-0" style={{ width: 44, height: 44, borderRadius: 13 }}>
                 <Zap size={18} />
               </div>
@@ -242,7 +242,7 @@ export default function Hero() {
             </div>
 
             {/* Floating Card 3 — Chef */}
-            <div ref={card3Ref} className="floating-card absolute -bottom-5 right-2 sm:right-4 lg:right-0 flex items-center gap-3 opacity-0 text-left">
+            <div ref={card3Ref} className="floating-card absolute -bottom-5 right-2 sm:right-4 lg:right-0 flex items-center gap-3 opacity-0 text-left scale-85 sm:scale-100 origin-right">
               <img src="https://picsum.photos/seed/chef99/44/44" alt="Chef"
                 className="w-11 h-11 rounded-2xl object-cover flex-shrink-0"
                 referrerPolicy="no-referrer" />

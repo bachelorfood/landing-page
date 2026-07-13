@@ -1,86 +1,91 @@
 import { useRef, useEffect } from 'react';
+import { motion } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Shield, Clock, Leaf, Users, Smartphone, Apple } from 'lucide-react';
+import { ArrowRight, Apple, Smartphone, Compass, ShieldCheck, Heart, Users } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const WHY = [
-  { Icon: Clock,   ib: 'ib-orange', title: 'Under 45 Min Delivery',  desc: 'Freshly cooked and delivered fast — never compromising on warmth or quality.' },
-  { Icon: Shield,  ib: 'ib-green',  title: 'FSSAI Certified Chefs',  desc: 'Every chef is government-certified for food safety and kitchen hygiene.' },
-  { Icon: Leaf,    ib: 'ib-gold',   title: 'Zero Preservatives',     desc: 'Only fresh, natural ingredients. No shortcuts, no packets, no compromise.' },
-  { Icon: Users,   ib: 'ib-navy',   title: 'Community of Cooks',     desc: 'Join 50,000+ families who have made Bachelor Food a part of daily life.' },
+  { Icon: Compass,     title: 'Local Discovery', desc: 'Find verified home kitchens right in your neighborhood.', ib: 'ib-orange' },
+  { Icon: ShieldCheck, title: 'FSSAI Certified',  desc: 'Every single chef is rigorously verified and certified.', ib: 'ib-green' },
+  { Icon: Heart,       title: 'Zero Preservatives',desc: 'Healthy meals prepared with pure, high-quality home ingredients.', ib: 'ib-gold' },
+  { Icon: Users,       title: 'Community First',   desc: 'Support local culinary talent and micro-entrepreneurs.', ib: 'ib-navy' },
 ];
 
 const APP_FEATURES = [
-  'Live order tracking with chef updates',
-  'Schedule meals up to 7 days ahead',
-  'Dietary filters — Jain, Vegan, Diabetic',
-  'Chat with your chef for custom requests',
-  'Loyalty rewards on every order',
-  'Group ordering for offices & events',
+  'Custom daily tiffin scheduling',
+  'FSSAI verified kitchen auditing',
+  'Zero-preservative hygiene rating',
+  'Live order status & ETA updates',
+  'Direct communication with chefs',
+  'No minimum order requirements',
 ];
 
 export default function CTA() {
-  const whyRef = useRef<HTMLElement>(null);
-  const appRef = useRef<HTMLElement>(null);
-  const phoneRef = useRef<HTMLDivElement>(null);
+  const whySectionRef = useRef<HTMLDivElement>(null);
+  const titleRef      = useRef<HTMLDivElement>(null);
+  const gridRef       = useRef<HTMLDivElement>(null);
+  const appRef        = useRef<HTMLDivElement>(null);
+  const phoneRef      = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // ── Why Section ScrollTrigger ──
     const ctx = gsap.context(() => {
-
-      // Why section cards glide up
-      if (whyRef.current) {
-        gsap.from('.why-header', {
-          y:50, opacity:0, duration:0.9, ease:'power3.out',
-          scrollTrigger:{ trigger:'.why-header', start:'top 80%', once:true },
-        });
-        gsap.from(whyRef.current.querySelectorAll('.why-card'), {
-          y:50, opacity:0, duration:0.6, stagger:0.1, ease:'power3.out',
-          scrollTrigger:{ trigger:whyRef.current.querySelector('.why-grid'), start:'top 78%', once:true },
-        });
-        gsap.from(whyRef.current.querySelector('.why-image'), {
-          x:60, opacity:0, scale:0.94, duration:0.9, ease:'power3.out',
-          scrollTrigger:{ trigger:whyRef.current.querySelector('.why-image'), start:'top 75%', once:true },
+      if (titleRef.current) {
+        gsap.from(titleRef.current, {
+          y: 40, opacity: 0, duration: 0.9, ease: 'power3.out',
+          scrollTrigger: { trigger: titleRef.current, start: 'top 82%', once: true },
         });
       }
 
-      // App section
+      if (gridRef.current) {
+        gsap.from(gridRef.current.querySelectorAll('.why-card'), {
+          y: 50, opacity: 0, scale: 0.97, duration: 0.8, stagger: 0.08, ease: 'back.out(1.2)',
+          scrollTrigger: { trigger: gridRef.current, start: 'top 85%', once: true },
+        });
+      }
+
+      // ── App Section ScrollTrigger ──
       if (appRef.current) {
         gsap.from(appRef.current.querySelector('.app-text'), {
-          x:-60, opacity:0, duration:0.9, ease:'power3.out',
-          scrollTrigger:{ trigger:appRef.current, start:'top 75%', once:true },
+          x: -50, opacity: 0, duration: 1.0, ease: 'power3.out',
+          scrollTrigger: { trigger: appRef.current, start: 'top 78%', once: true },
         });
+      }
+
+      if (phoneRef.current) {
         gsap.from(phoneRef.current, {
-          x:60, opacity:0, scale:0.92, duration:1, ease:'power3.out',
-          scrollTrigger:{ trigger:appRef.current, start:'top 75%', once:true },
-          delay:0.15,
+          x: 50, opacity: 0, rotate: 10, scale: 0.9, duration: 1.1, ease: 'power4.out',
+          scrollTrigger: { trigger: phoneRef.current, start: 'top 78%', once: true },
         });
       }
     });
+
     return () => ctx.revert();
   }, []);
 
   return (
     <>
-      {/* ── Why Bachelor Food ── */}
-      <section ref={whyRef} className="bg-bf-cream py-24">
+      {/* ── Why Section ── */}
+      <section ref={whySectionRef} className="py-24 bg-white overflow-hidden text-left">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <div className="grid lg:grid-cols-2 gap-14 items-center">
-
-            <div>
-              <div className="why-header">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            
+            {/* Text & Grid */}
+            <div className="relative">
+              <div ref={titleRef} className="mb-10">
                 <div className="t-overline mb-5">Why Choose Us</div>
-                <h2 className="t-headline text-bf-ink mb-5">
-                  Not Just Delivery.<br />
-                  <span className="italic-orange">A Better Way</span><br />to Eat.
+                <h2 className="t-headline text-bf-ink mb-4">
+                  Taste the Freshness of<br />
+                  <span className="italic-orange">Authentic Home Kitchens</span>
                 </h2>
-                <p className="text-bf-muted leading-relaxed max-w-md mb-10">
-                  We connect you directly with home cooks in your neighbourhood — no ghost kitchens, no mass production. Real food, made with genuine care.
+                <p className="text-bf-muted leading-relaxed max-w-md">
+                  We are redefining meal times by bringing healthy, fresh, and hygienic home-cooked food straight to you.
                 </p>
               </div>
 
-              <div className="why-grid grid sm:grid-cols-2 gap-4 mb-10">
+              <div ref={gridRef} className="why-grid grid sm:grid-cols-2 gap-4 mb-10">
                 {WHY.map((f,i) => (
                   <div key={i} className="why-card card p-5">
                     <div className={`icon-box ${f.ib} mb-4`}><f.Icon size={20} /></div>
@@ -91,10 +96,11 @@ export default function CTA() {
               </div>
 
               <a href="#download" className="btn btn-primary btn-lg inline-flex" onClick={(e) => { e.preventDefault(); (window as any).lenis?.scrollTo('#download', { duration: 1.2 }); }}>
-                Start Ordering Today <ArrowRight size={17} />
+                Get the App <ArrowRight size={17} />
               </a>
             </div>
 
+            {/* Chef image showcase */}
             <div className="why-image relative">
               <div className="rounded-3xl overflow-hidden h-96 sm:h-[540px] relative">
                 <img src="/assets/home_chef.png" alt="Home chef preparing food"
@@ -111,13 +117,14 @@ export default function CTA() {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
       {/* ── Orange CTA Banner ── */}
       <section className="orange-banner py-16">
-        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 flex flex-col lg:flex-row items-center justify-between gap-8 text-left">
           <div className="text-center lg:text-left">
             <h2 className="font-serif text-3xl lg:text-4xl text-white font-bold mb-2">
               Become a Home Chef on Bachelor Food
@@ -134,7 +141,7 @@ export default function CTA() {
       </section>
 
       {/* ── App Download ── */}
-      <section id="download" ref={appRef} className="bg-bf-surface py-24">
+      <section id="download" ref={appRef} className="bg-bf-surface py-24 text-left">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Text */}
@@ -242,6 +249,7 @@ export default function CTA() {
               </div>
             </div>
           </div>
+
         </div>
       </section>
     </>

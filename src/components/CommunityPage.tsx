@@ -39,6 +39,7 @@ export default function CommunityPage() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="text-left"
           >
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-brand-charcoal font-bold text-[10px] uppercase tracking-[0.25em] mb-6 shadow-sm border border-zinc-200/50 w-max">
               <span className="w-2 h-2 rounded-full bg-brand-terracotta" />
@@ -75,8 +76,8 @@ export default function CommunityPage() {
                 transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="bg-white rounded-[40px] border border-zinc-200/60 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group"
               >
-                <div className="p-8 md:p-10">
-                  <div className="flex items-center justify-between mb-8">
+                <div className="p-6 sm:p-8 md:p-10 text-left">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                     <div className="flex items-center gap-4">
                       <div className="relative">
                         <img src={post.avatar} alt={post.author} className="w-14 h-14 rounded-full object-cover shadow-sm group-hover:scale-110 transition-transform duration-500" referrerPolicy="no-referrer" />
@@ -87,7 +88,7 @@ export default function CommunityPage() {
                         <span className="text-xs text-zinc-400 font-bold tracking-[0.2em] uppercase">{post.time}</span>
                       </div>
                     </div>
-                    <div className="px-4 py-2 bg-brand-sand text-brand-charcoal border border-zinc-200 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 group-hover:bg-brand-forest group-hover:text-white transition-colors duration-500 cursor-pointer">
+                    <div className="px-4 py-2 bg-brand-sand text-brand-charcoal border border-zinc-200 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 group-hover:bg-brand-forest group-hover:text-white transition-colors duration-500 cursor-pointer self-start sm:self-auto">
                       <ChefHat className="w-4 h-4" />
                       {post.recipe}
                     </div>
@@ -99,7 +100,7 @@ export default function CommunityPage() {
                     <img src={post.image} alt="Post" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" referrerPolicy="no-referrer" />
                   </div>
                   
-                  <div className="flex items-center gap-8 pt-6 border-t border-zinc-100">
+                  <div className="flex items-center gap-6 sm:gap-8 pt-6 border-t border-zinc-100">
                     <button className="flex items-center gap-3 text-zinc-400 hover:text-brand-terracotta transition-colors group/btn">
                       <div className="p-3 rounded-full group-hover/btn:bg-brand-terracotta/10 transition-colors">
                         <Heart className="w-6 h-6" />
@@ -122,7 +123,7 @@ export default function CommunityPage() {
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-4 space-y-10">
+          <div className="lg:col-span-4 space-y-10 text-left">
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
