@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Background -->
+  <rect width="64" height="64" rx="14" fill="#F4601A"/>
+  <!-- Letter B shape -->
+  <path d="M14 12 L14 52 L36 52 Q50 52 50 42 Q50 36 44 34 Q50 32 50 24 Q50 12 36 12 Z" fill="white"/>
+  <path d="M22 20 L34 20 Q42 20 42 26 Q42 32 34 32 L22 32 Z" fill="#F4601A"/>
+  <path d="M22 32 L36 32 Q44 32 44 42 Q44 44 36 44 L22 44 Z" fill="#F4601A"/>
+  <!-- Cloche icon inside B -->
+  <ellipse cx="32" cy="36" rx="9" ry="2" fill="white"/>
+  <path d="M23 36 Q23 28 32 28 Q41 28 41 36" fill="white"/>
+  <circle cx="32" cy="27.5" r="1.5" fill="#F4601A"/>
+</svg>
