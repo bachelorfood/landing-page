@@ -11,28 +11,28 @@ const STEPS = [
     title: 'Set Your Location',
     desc:  'Enter your address and instantly discover home chefs cooking delicious meals in your neighbourhood right now. GPS-precise, down to your street.',
     check: 'Available across 24 cities',
-    img:   'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=700',
+    img:   '/assets/step_location.png',
   },
   {
     num: '02', Icon: ChefHat,    iconStyle: 'ib-gold',
     title: 'Browse & Choose Your Chef',
     desc:  'Explore verified home chefs near you — see their menus, read reviews, check specialties and find your perfect culinary match.',
     check: '2,800+ verified home chefs',
-    img:   'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=700',
+    img:   '/assets/step_choose_chef.png',
   },
   {
     num: '03', Icon: Smartphone, iconStyle: 'ib-navy',
     title: 'Order in One Tap',
     desc:  'Place your order instantly, customise your meal, and watch your food being prepared in real time with live GPS tracking.',
     check: 'Live GPS tracking on every order',
-    img:   'https://images.unsplash.com/photo-1512054502232-10a0a035d672?auto=format&fit=crop&q=80&w=700',
+    img:   '/assets/step_order_tap.png',
   },
   {
     num: '04', Icon: CheckCircle, iconStyle: 'ib-green',
     title: 'Enjoy Authentic Home Cooking',
     desc:  'Freshly cooked, piping hot, just like family made it — delivered to your door in an average of 35 minutes. No compromise, ever.',
     check: 'Average delivery: 35 min',
-    img:   'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=700',
+    img:   '/assets/step_enjoy_food.png',
   },
 ];
 
