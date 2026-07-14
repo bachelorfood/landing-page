@@ -3,74 +3,77 @@ import { Recipe } from './types';
 export const recipes: Recipe[] = [
   {
     id: '1',
-    title: 'Signature Smoked Ribeye',
-    description: 'A masterclass in heat control and dry-rub balance. Seared over cast iron and finished with rosemary-infused wagyu fat.',
-    image: 'https://images.unsplash.com/photo-1546241072-48010ad28c2c?auto=format&fit=crop&q=80&w=800',
-    time: '45 Min',
+    title: 'Hyderabadi Dum Biryani',
+    description: 'A timeless Nizami classic. Premium long-grain basmati rice layered with tender meat, infused with saffron, fresh mint, and traditional hand-ground spices, slow-cooked in small brass pots under charcoal embers.',
+    image: '/assets/hyderabadi_biryani.png',
+    time: '40 Min',
     difficulty: 'Pro',
-    author: 'Chef Marcus',
-    category: 'Gourmet',
+    author: 'Chef Fatima Begum',
+    category: 'Biryani',
     servings: 2,
-    calories: 850,
-    tags: ['High Protein', 'Gluten Free', 'Dinner'],
+    calories: 750,
+    tags: ['Signature', 'Spicy', 'Nizami'],
     ingredients: [
-      { item: 'Dry-aged Ribeye', amount: '24', unit: 'oz' },
-      { item: 'Unsalted Butter', amount: '4', unit: 'tbsp' },
-      { item: 'Fresh Rosemary', amount: '3', unit: 'sprigs' },
-      { item: 'Garlic Cloves', amount: '4', unit: 'crushed' }
+      { item: 'Basmati Rice', amount: '500', unit: 'g' },
+      { item: 'Marinated Mutton/Chicken', amount: '500', unit: 'g' },
+      { item: 'Saffron Strands', amount: '1', unit: 'pinch' },
+      { item: 'Fried Onions', amount: '1', unit: 'cup' },
+      { item: 'Fresh Mint & Coriander', amount: '1', unit: 'bunch' }
     ],
     instructions: [
-      { step: 1, text: 'Temper the steak at room temperature for 45 minutes before cooking.' },
-      { step: 2, text: 'Season aggressively with kosher salt and cracked black pepper.' },
-      { step: 3, text: 'Sear in a ripping hot cast iron skillet until a deep crust forms.' }
+      { step: 1, text: 'Marinate the meat in yogurt, ginger-garlic paste, and traditional spices for 4 hours.' },
+      { step: 2, text: 'Parboil basmati rice with whole spices until 70% cooked.' },
+      { step: 3, text: 'Layer the meat and rice in a pot, add saffron milk, seal the lid with dough, and slow-cook (Dum) for 35 minutes.' }
     ]
   },
   {
     id: '2',
-    title: 'Midnight Pasta Carbonara',
-    description: 'The ultimate comfort dish for late nights. Real guanciale, pecorino romano, and farm-fresh egg yolks only.',
-    image: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&q=80&w=800',
-    time: '20 Min',
+    title: 'Dal Makhani with Naan',
+    description: 'A rich, creamy Punjabi staple. Whole black lentils and red kidney beans simmered slowly overnight on traditional tandoor embers, finished with farm-fresh butter and cream.',
+    image: '/assets/dal_makhani.png',
+    time: '30 Min',
     difficulty: 'Intermediate',
-    author: 'Elena Rossi',
-    category: 'Italian',
-    servings: 1,
-    calories: 620,
-    tags: ['Quick', 'Classic', 'Late Night'],
+    author: 'Chef Rajesh Sharma',
+    category: 'North Indian',
+    servings: 2,
+    calories: 600,
+    tags: ['Comfort Food', 'Vegetarian', 'Creamy'],
     ingredients: [
-      { item: 'Spaghetti', amount: '100', unit: 'g' },
-      { item: 'Guanciale', amount: '50', unit: 'g' },
-      { item: 'Egg Yolks', amount: '3', unit: 'pcs' },
-      { item: 'Pecorino Romano', amount: '30', unit: 'g' }
+      { item: 'Black Lentils (Urad Dal)', amount: '200', unit: 'g' },
+      { item: 'Kidney Beans (Rajma)', amount: '50', unit: 'g' },
+      { item: 'Fresh Cream', amount: '4', unit: 'tbsp' },
+      { item: 'Butter', amount: '50', unit: 'g' },
+      { item: 'Tomato Puree & Spices', amount: '1', unit: 'cup' }
     ],
     instructions: [
-      { step: 1, text: 'Boil pasta in salted water until al dente.' },
-      { step: 2, text: 'Render guanciale until crispy in a cold pan over medium heat.' },
-      { step: 3, text: 'Whisk yolks and cheese, combine with pasta and a splash of pasta water off-heat.' }
+      { step: 1, text: 'Soak lentils and beans overnight, then pressure cook until completely soft.' },
+      { step: 2, text: 'Simmer on low heat with tomato puree, ginger, and garlic for at least 2 hours.' },
+      { step: 3, text: 'Mash the lentils slightly, stir in fresh butter and cream, and serve hot with clay-tandoor naan.' }
     ]
   },
   {
     id: '3',
-    title: 'Charred Miso Salmon',
-    description: 'Umami-packed glaze with a perfectly crisp skin. Served over a bed of jasmine rice and sesame-seared bok choy.',
-    image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=800',
-    time: '25 Min',
-    difficulty: 'Easy',
-    author: 'Yuki Tanaka',
-    category: 'Japanese',
+    title: 'Chettinad Chicken Curry',
+    description: 'An authentic fiery delight from Tamil Nadu. Tender chicken simmered in a freshly roasted paste of coconut, black pepper, poppy seeds, and traditional Chettinad spices cooked in an earthenware clay pot.',
+    image: '/assets/chettinad_chicken.png',
+    time: '35 Min',
+    difficulty: 'Intermediate',
+    author: 'Chef Selvan Kumar',
+    category: 'South Indian',
     servings: 2,
-    calories: 420,
-    tags: ['Healthy', 'Pescatarian', 'Umami'],
+    calories: 480,
+    tags: ['Spicy', 'Earthenware', 'Authentic'],
     ingredients: [
-      { item: 'Salmon Fillets', amount: '2', unit: 'pcs' },
-      { item: 'White Miso', amount: '2', unit: 'tbsp' },
-      { item: 'Mirin', amount: '1', unit: 'tbsp' },
-      { item: 'Ginger', amount: '1', unit: 'tsp' }
+      { item: 'Chicken pieces', amount: '500', unit: 'g' },
+      { item: 'Freshly grated coconut', amount: '1/2', unit: 'cup' },
+      { item: 'Black Peppercorns & Fennel', amount: '2', unit: 'tbsp' },
+      { item: 'Shallots (Sambar Onions)', amount: '1', unit: 'cup' },
+      { item: 'Curry Leaves & Sesame Oil', amount: '3', unit: 'sprigs' }
     ],
     instructions: [
-      { step: 1, text: 'Whisk miso, mirin, and ginger into a thick glaze.' },
-      { step: 2, text: 'Coat salmon and let marinate for at least 30 minutes.' },
-      { step: 3, text: 'Bake at 400°F until caramelized and flaky.' }
+      { step: 1, text: 'Dry roast the coconut, peppercorns, fennel seeds, and red chilies, then grind into a fine paste.' },
+      { step: 2, text: 'Heat sesame oil in a clay pot, sauté shallots and curry leaves until golden.' },
+      { step: 3, text: 'Add chicken, spice paste, water, and simmer on low heat until the chicken is tender and oil separates.' }
     ]
   }
 ];

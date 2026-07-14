@@ -6,10 +6,10 @@ import { Award, MapPin, Star } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 const CHEFS = [
-  { name:'Fatima Begum',   specialty:'Hyderabadi & Mughlai',   orders:'3,200+', rating:4.9, city:'Hyderabad', badge:'Top Chef',     badgeStyle:'badge-orange', feat:'Dum Biryani',    img:'https://images.unsplash.com/photo-1607631568010-a87245c0daf8?auto=format&fit=crop&q=80&w=500' },
-  { name:'Kamala Devi',    specialty:'Chettinad & South Indian',orders:'2,800+', rating:4.8, city:'Chennai',   badge:'Fan Favourite',badgeStyle:'badge-gold',   feat:'Chettinad Curry',img:'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=500' },
-  { name:'Gurpreet Kaur',  specialty:'Punjabi & North Indian',  orders:'4,100+', rating:5.0, city:'Bangalore', badge:'Legend',       badgeStyle:'badge-green',  feat:'Dal Makhani',    img:'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=500' },
-  { name:'Lakshmi Rao',    specialty:'Kerala & Tamil Cuisine',  orders:'1,900+', rating:4.7, city:'Coimbatore',badge:'Rising Star',  badgeStyle:'badge-navy',   feat:'Fish Curry',     img:'https://images.unsplash.com/photo-1566554273541-37a9ca77b91f?auto=format&fit=crop&q=80&w=500' },
+  { name:'Chef Fatima Begum',   specialty:'Hyderabadi & Mughlai',   orders:'3,200+', rating:4.9, city:'Hyderabad', badge:'Top Chef',     badgeStyle:'badge-orange', feat:'Dum Biryani',    img:'/assets/hyderabadi_biryani.png' },
+  { name:'Chef Selvan Kumar',   specialty:'Chettinad & Tamil',      orders:'2,800+', rating:4.8, city:'Karaikudi', badge:'Fan Favourite',badgeStyle:'badge-gold',   feat:'Chettinad Curry',img:'/assets/chettinad_chicken.png' },
+  { name:'Chef Rajesh Sharma',  specialty:'Punjabi & North Indian',  orders:'4,100+', rating:5.0, city:'Delhi NCR', badge:'Legend',       badgeStyle:'badge-green',  feat:'Dal Makhani',    img:'/assets/dal_makhani.png' },
+  { name:'Chef Meenakshi Sundaram', specialty:'Traditional Breakfasts', orders:'1,900+', rating:4.9, city:'Chennai',   badge:'Rising Star',  badgeStyle:'badge-navy',   feat:'Masala Dosa',    img:'/assets/masala_dosa.png' },
 ];
 
 const TESTIMONIALS = [

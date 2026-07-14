@@ -18,7 +18,7 @@ interface Chef {
 const CHEFS: Chef[] = [
   {
     id: 1,
-    name: 'Chef Fatima B.',
+    name: 'Chef Fatima Begum',
     avatar: 'https://picsum.photos/seed/cheffatima/150/150',
     rating: 4.9,
     specialty: 'Hyderabadi Dum Biryani & Traditional Nizami Cuisine',
@@ -29,7 +29,7 @@ const CHEFS: Chef[] = [
   },
   {
     id: 2,
-    name: 'Chef Selvan K.',
+    name: 'Chef Selvan Kumar',
     avatar: 'https://picsum.photos/seed/chefselvan/150/150',
     rating: 4.85,
     specialty: 'Tamil Chettinad Kitchen & Claypot Curries',
@@ -40,7 +40,7 @@ const CHEFS: Chef[] = [
   },
   {
     id: 3,
-    name: 'Chef Meenakshi S.',
+    name: 'Chef Meenakshi Sundaram',
     avatar: 'https://picsum.photos/seed/chefmeenakshi/150/150',
     rating: 4.92,
     specialty: 'Traditional South Indian Breakfasts & Filter Coffee',
@@ -75,7 +75,7 @@ const REELS = [
   },
   {
     id: 2,
-    chef: 'Chef Fatima B.',
+    chef: 'Chef Fatima Begum',
     title: 'Layering Hyderabadi Dum Biryani',
     location: 'Nizami Slow Kitchen',
     url: 'https://player.vimeo.com/external/435674703.sd.mp4?s=7fdb2c5b1b46747d25e834ef19a16f2c069270e5&profile_id=165&oauth2_token_id=57447761',
@@ -85,7 +85,7 @@ const REELS = [
   },
   {
     id: 3,
-    chef: 'Chef Selvan K.',
+    chef: 'Chef Selvan Kumar',
     title: 'Sizzling Chettinad Spice Tempering',
     location: 'Tamil Earthenware Kitchen',
     url: 'https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054e082a5c2d3a9d9841f3e79b5c3ff&profile_id=139&oauth2_token_id=57447761',

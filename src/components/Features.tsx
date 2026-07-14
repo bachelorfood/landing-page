@@ -9,12 +9,12 @@ gsap.registerPlugin(ScrollTrigger);
 const CATEGORIES = ['All', 'Biryani', 'South Indian', 'North Indian', 'Healthy', 'Desserts'];
 
 const DISHES = [
-  { id:1, name:'Hyderabadi Dum Biryani',  chef:'Fatima Begum',  price:220, rating:4.9, reviews:842,  time:'40 min', cat:'Biryani',      image:'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=600', tag:'Best Seller', tagStyle:'badge-orange', spicy:true },
-  { id:2, name:'Chettinad Chicken Curry',  chef:'Kamala Devi',   price:180, rating:4.8, reviews:613,  time:'35 min', cat:'South Indian',  image:'https://images.unsplash.com/photo-1604152135912-04a022e23696?auto=format&fit=crop&q=80&w=600', tag:'Spicy',       tagStyle:'badge-gold',   spicy:true },
-  { id:3, name:'Dal Makhani with Naan',    chef:'Gurpreet Kaur', price:160, rating:4.7, reviews:1021, time:'30 min', cat:'North Indian',  image:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=600', tag:'Comfort',    tagStyle:'badge-navy',   spicy:false },
-  { id:4, name:'Masala Dosa & Sambar',     chef:'Lakshmi Rao',   price:120, rating:4.9, reviews:1344, time:'25 min', cat:'South Indian',  image:'https://images.unsplash.com/photo-1630383249896-424e482df921?auto=format&fit=crop&q=80&w=600', tag:'Fan Fav',    tagStyle:'badge-green',  spicy:false },
-  { id:5, name:'Rajma Rice Bowl',          chef:'Sunita Sharma', price:140, rating:4.6, reviews:429,  time:'35 min', cat:'Healthy',       image:'https://images.unsplash.com/photo-1546833998-877b37c2e5c6?auto=format&fit=crop&q=80&w=600', tag:'Healthy',    tagStyle:'badge-green',  spicy:false },
-  { id:6, name:'Gulab Jamun & Rabri',      chef:'Radha Krishnan',price:90,  rating:4.9, reviews:768,  time:'15 min', cat:'Desserts',      image:'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&q=80&w=600', tag:'Sweet',      tagStyle:'badge-gold',   spicy:false },
+  { id:1, name:'Hyderabadi Dum Biryani',  chef:'Chef Fatima Begum',      price:220, rating:4.9, reviews:842,  time:'40 min', cat:'Biryani',      image:'/assets/hyderabadi_biryani.png', tag:'Best Seller', tagStyle:'badge-orange', spicy:true },
+  { id:2, name:'Chettinad Chicken Curry',  chef:'Chef Selvan Kumar',       price:180, rating:4.8, reviews:613,  time:'35 min', cat:'South Indian',  image:'/assets/chettinad_chicken.png', tag:'Spicy',       tagStyle:'badge-gold',   spicy:true },
+  { id:3, name:'Dal Makhani with Naan',    chef:'Chef Rajesh Sharma',     price:160, rating:4.7, reviews:1021, time:'30 min', cat:'North Indian',  image:'/assets/dal_makhani.png', tag:'Comfort',    tagStyle:'badge-navy',   spicy:false },
+  { id:4, name:'Masala Dosa & Sambar',     chef:'Chef Meenakshi Sundaram', price:120, rating:4.9, reviews:1344, time:'25 min', cat:'South Indian',  image:'/assets/masala_dosa.png', tag:'Fan Fav',    tagStyle:'badge-green',  spicy:false },
+  { id:5, name:'Rajma Rice Bowl',          chef:'Chef Rajesh Sharma',     price:140, rating:4.6, reviews:429,  time:'35 min', cat:'Healthy',       image:'https://images.unsplash.com/photo-1546833998-877b37c2e5c6?auto=format&fit=crop&q=80&w=600', tag:'Healthy',    tagStyle:'badge-green',  spicy:false },
+  { id:6, name:'Gulab Jamun & Rabri',      chef:'Chef Fatima Begum',      price:90,  rating:4.9, reviews:768,  time:'15 min', cat:'Desserts',      image:'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&q=80&w=600', tag:'Sweet',      tagStyle:'badge-gold',   spicy:false },
 ];
 
 export default function Features() {
