@@ -420,6 +420,22 @@ html.lenis { height: auto; }
    STEP CARD
 ───────────────────────────────────── */
 
+/* ── Orange CTA Banner ── */
+.orange-banner {
+  background: linear-gradient(135deg, #F4601A 0%, #D44D0E 100%);
+  color: #ffffff;
+  border-radius: 32px;
+  margin: 0 2rem;
+  box-shadow: 0 20px 40px rgba(244,96,26,0.15);
+}
+@media (max-width: 768px) {
+  .orange-banner {
+    margin: 0 1.25rem;
+    border-radius: 24px;
+    padding: 3rem 1.5rem;
+  }
+}
+
 
 
 
