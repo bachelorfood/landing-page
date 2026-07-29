@@ -40,21 +40,19 @@ export default function SettingsPage() {
 
   // Delete form state
   const [deleteConfirmUsername, setDeleteConfirmUsername] = useState('');
-  const [deleteReason, setDeleteReason] = useState('Inactivity');
   const [deleteCustomReason, setDeleteCustomReason] = useState('');
   const [deleteError, setDeleteError] = useState('');
 
-  // Select 3 to 4 random users on load or refresh click
-  const pickRandomUsers = () => {
+  // Select exactly 1 random user on load or refresh click
+  const pickRandomUser = () => {
     const shuffled = [...POOL_OF_USERS].sort(() => 0.5 - Math.random());
-    const count = Math.floor(Math.random() * 2) + 3; // Picks either 3 or 4
-    setUsers(shuffled.slice(0, count));
+    setUsers(shuffled.slice(0, 1));
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Settings & Accounts — Bachelor Food";
-    pickRandomUsers();
+    document.title = "Settings & Account — Bachelor Food";
+    pickRandomUser();
   }, []);
 
   const handleEditOpen = (user: SettingsUser) => {
@@ -88,7 +86,6 @@ export default function SettingsPage() {
   const handleDeleteOpen = (user: SettingsUser) => {
     setDeletingUser(user);
     setDeleteConfirmUsername('');
-    setDeleteReason('Inactivity');
     setDeleteCustomReason('');
     setDeleteError('');
   };
@@ -100,14 +97,14 @@ export default function SettingsPage() {
       return;
     }
 
-    // Remove user
-    setUsers(users.filter(u => u.id !== deletingUser?.id));
+    // Remove user from display
+    setUsers([]);
     setDeletingUser(null);
   };
 
   return (
     <div className="bg-bf-cream min-h-screen pt-28 pb-20 text-left">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+      <div className="max-w-4xl mx-auto px-5 sm:px-8">
         
         {/* Back Link */}
         <div className="mb-6">
@@ -117,72 +114,81 @@ export default function SettingsPage() {
         </div>
 
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 border-b border-bf-border-light pb-8">
           <div>
             <div className="t-overline mb-2">Workspace Config</div>
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-bf-ink font-bold leading-tight">
-              Settings & Random Users
+              Account Settings
             </h1>
             <p className="text-bf-muted text-sm mt-2">
-              Showing 3 to 4 randomized users. Refresh the page or click "Shuffle Users" to load a new batch of random users.
+              Showing a randomized user account. Refresh the page or click "Shuffle User" to load a new random user.
             </p>
           </div>
           
           <button 
-            onClick={pickRandomUsers}
+            onClick={pickRandomUser}
             className="btn btn-outline self-start sm:self-center flex items-center gap-2"
           >
-            <RefreshCw size={16} /> Shuffle Users
+            <RefreshCw size={16} /> Shuffle User
           </button>
         </div>
 
-        {/* Users Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {users.map((user) => (
-            <div key={user.id} className="card p-6 flex flex-col justify-between hover:shadow-xl transition-all duration-300">
-              <div>
-                <div className="flex items-center gap-4 mb-4">
-                  <img 
-                    src={`https://picsum.photos/seed/${user.avatarSeed}/100/100`} 
-                    alt={user.name} 
-                    className="w-14 h-14 rounded-2xl object-cover border border-bf-border-light shadow-sm"
-                  />
-                  <div>
-                    <h3 className="font-serif text-lg font-bold text-bf-ink">{user.name}</h3>
-                    <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-bf-orange bg-bf-orange-tint px-2.5 py-0.5 rounded-full border border-bf-orange/15">
-                      {user.role}
-                    </span>
+        {/* User Card Container */}
+        <div className="flex justify-center mb-12">
+          {users.length > 0 ? (
+            users.map((user) => (
+              <div key={user.id} className="card p-8 w-full max-w-md flex flex-col justify-between hover:shadow-xl transition-all duration-300">
+                <div>
+                  <div className="flex items-center gap-4 mb-6">
+                    <img 
+                      src={`https://picsum.photos/seed/${user.avatarSeed}/100/100`} 
+                      alt={user.name} 
+                      className="w-16 h-16 rounded-2xl object-cover border border-bf-border-light shadow-sm"
+                    />
+                    <div>
+                      <h3 className="font-serif text-xl font-bold text-bf-ink">{user.name}</h3>
+                      <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-bf-orange bg-bf-orange-tint px-3 py-1 rounded-full border border-bf-orange/15">
+                        {user.role}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 border-t border-bf-border-light pt-5 mb-8">
+                    <div className="flex items-center gap-2.5 text-sm text-bf-muted">
+                      <User size={15} className="text-bf-subtle flex-shrink-0" />
+                      <span>Username: <strong className="text-bf-ink">{user.username}</strong></span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-sm text-bf-muted">
+                      <Mail size={15} className="text-bf-subtle flex-shrink-0" />
+                      <span className="truncate">{user.email}</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="space-y-2 border-t border-bf-border-light pt-4 mb-6">
-                  <div className="flex items-center gap-2 text-xs text-bf-muted">
-                    <User size={13} className="text-bf-subtle" />
-                    <span>Username: <strong>{user.username}</strong></span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs text-bf-muted">
-                    <Mail size={13} className="text-bf-subtle" />
-                    <span className="truncate">{user.email}</span>
-                  </div>
+                <div className="flex gap-3">
+                  <button 
+                    onClick={() => handleEditOpen(user)}
+                    className="flex-1 btn btn-outline justify-center py-3"
+                  >
+                    <Edit2 size={14} /> Edit Profile
+                  </button>
+                  <button 
+                    onClick={() => handleDeleteOpen(user)}
+                    className="flex-1 bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 rounded-full text-xs font-bold py-3 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <Trash2 size={14} /> Delete Profile
+                  </button>
                 </div>
               </div>
-
-              <div className="flex gap-2">
-                <button 
-                  onClick={() => handleEditOpen(user)}
-                  className="flex-1 btn btn-outline btn-sm justify-center py-2.5"
-                >
-                  <Edit2 size={13} /> Edit
-                </button>
-                <button 
-                  onClick={() => handleDeleteOpen(user)}
-                  className="flex-1 bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 rounded-full text-xs font-semibold py-2.5 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                >
-                  <Trash2 size={13} /> Delete
-                </button>
-              </div>
+            ))
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-bf-muted font-medium mb-4">User account deleted successfully.</p>
+              <button onClick={pickRandomUser} className="btn btn-primary">
+                Load New Random User
+              </button>
             </div>
-          ))}
+          )}
         </div>
 
         {/* ── MODALS ── */}
@@ -290,7 +296,7 @@ export default function SettingsPage() {
                   You are deleting the randomized user profile for <strong className="text-bf-ink">{deletingUser.name}</strong>.
                 </p>
 
-                <form onSubmit={handleDeleteSubmit} className="space-y-4">
+                <form onSubmit={handleDeleteSubmit} className="space-y-5">
                   {/* Enter Username */}
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-bf-muted mb-2">
@@ -302,6 +308,7 @@ export default function SettingsPage() {
                       value={deleteConfirmUsername}
                       onChange={(e) => setDeleteConfirmUsername(e.target.value)}
                       className="w-full bg-bf-cream/50 border border-bf-border-light rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-red-500 text-bf-ink"
+                      required
                     />
                     {deleteError && (
                       <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -310,34 +317,18 @@ export default function SettingsPage() {
                     )}
                   </div>
 
-                  {/* Reason Selection */}
+                  {/* Reason Text Input */}
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-bf-muted mb-2">Reason for Deletion</label>
-                    <select
-                      value={deleteReason}
-                      onChange={(e) => setDeleteReason(e.target.value)}
-                      className="w-full bg-white border border-bf-border-light rounded-xl py-3 px-3 text-sm focus:outline-none focus:border-bf-orange text-bf-ink"
-                    >
-                      <option value="Inactivity">Inactivity</option>
-                      <option value="Requested by user">Requested by user</option>
-                      <option value="Policy violation">Policy violation</option>
-                      <option value="Other">Other (Please specify)</option>
-                    </select>
+                    <textarea
+                      rows={3}
+                      value={deleteCustomReason}
+                      onChange={(e) => setDeleteCustomReason(e.target.value)}
+                      className="w-full bg-bf-cream/50 border border-bf-border-light rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-bf-orange text-bf-ink"
+                      placeholder="Why is this account being deleted?"
+                      required
+                    />
                   </div>
-
-                  {/* Custom Reason */}
-                  {deleteReason === 'Other' && (
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-bf-muted mb-2">Specify Reason</label>
-                      <textarea
-                        rows={2}
-                        value={deleteCustomReason}
-                        onChange={(e) => setDeleteCustomReason(e.target.value)}
-                        className="w-full bg-bf-cream/50 border border-bf-border-light rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-bf-orange text-bf-ink"
-                        placeholder="Why is this account being deleted?"
-                      />
-                    </div>
-                  )}
 
                   <div className="flex gap-3 pt-4 border-t border-bf-border-light mt-6">
                     <button 
