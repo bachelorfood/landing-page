@@ -20,6 +20,7 @@ import RecipeDetailPage from './components/RecipeDetailPage';
 import OurChefsPage from './components/OurChefsPage';
 import CommunityPage from './components/CommunityPage';
 import TermsPage from './components/TermsPage';
+import AdminAccountsPage from './components/AdminAccountsPage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -111,6 +112,7 @@ function AnimatedRoutes() {
           <Route path="/chefs"      element={<Page><OurChefsPage /></Page>} />
           <Route path="/community"  element={<Page><CommunityPage /></Page>} />
           <Route path="/terms"      element={<Page><TermsPage /></Page>} />
+          <Route path="/admin/edit" element={<Page><AdminAccountsPage /></Page>} />
         </Routes>
       </motion.div>
     </AnimatePresence>
