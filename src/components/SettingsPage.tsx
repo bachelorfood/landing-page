@@ -320,8 +320,8 @@ export default function SettingsPage() {
                   {/* Reason Text Input */}
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-bf-muted mb-2">Reason for Deletion</label>
-                    <textarea
-                      rows={3}
+                    <input
+                      type="text"
                       value={deleteCustomReason}
                       onChange={(e) => setDeleteCustomReason(e.target.value)}
                       className="w-full bg-bf-cream/50 border border-bf-border-light rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-bf-orange text-bf-ink"
