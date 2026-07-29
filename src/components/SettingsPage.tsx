@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Settings, Trash2, Edit2, ShieldAlert, Check, 
-  X, AlertCircle, RefreshCw, ArrowLeft, Mail, User 
+  X, AlertCircle, ArrowLeft, Mail, User, Lock 
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -15,21 +15,17 @@ interface SettingsUser {
   role: string;
 }
 
-const POOL_OF_USERS: SettingsUser[] = [
-  { id: '1', name: 'Rohan Sharma', username: 'rohan_sharma', email: 'rohan.sharma@bachelorfood.in', avatarSeed: 'rohan', role: 'Premium Chef' },
-  { id: '2', name: 'Anjali Nair', username: 'anjali_nair', email: 'anjali.nair@bachelorfood.in', avatarSeed: 'anjali', role: 'Operations Lead' },
-  { id: '3', name: 'Kabir Dev', username: 'kabir_dev', email: 'kabir.d@bachelorfood.in', avatarSeed: 'kabir', role: 'Support Agent' },
-  { id: '4', name: 'Meera Iyer', username: 'meera_iyer', email: 'meera.iyer@gmail.com', avatarSeed: 'meera', role: 'Registered Chef' },
-  { id: '5', name: 'Siddharth Roy', username: 'sid_roy', email: 'siddharth@gmail.com', avatarSeed: 'sid', role: 'Moderator' },
-  { id: '6', name: 'Vikram Singh', username: 'vikram_s', email: 'vikram.singh@bachelorfood.in', avatarSeed: 'vikram', role: 'Chef Auditor' },
-  { id: '7', name: 'Priya Patel', username: 'priya_p', email: 'priya.patel@gmail.com', avatarSeed: 'priya', role: 'Regional Manager' },
-  { id: '8', name: 'Divya Das', username: 'divya_das', email: 'divya.d@bachelorfood.in', avatarSeed: 'divya', role: 'Quality Analyst' },
-  { id: '9', name: 'Aditya Rao', username: 'aditya_rao', email: 'aditya.rao@gmail.com', avatarSeed: 'aditya', role: 'System Admin' },
-  { id: '10', name: 'Sneha Reddy', username: 'sneha_r', email: 'sneha.reddy@bachelorfood.in', avatarSeed: 'sneha', role: 'Customer Care' }
-];
+const DEFAULT_USER: SettingsUser = {
+  id: 'BF-2001',
+  name: 'Rohan Sharma',
+  username: 'rohan_sharma',
+  email: 'rohan.sharma@bachelorfood.in',
+  avatarSeed: 'rohan',
+  role: 'Premium Chef'
+};
 
 export default function SettingsPage() {
-  const [users, setUsers] = useState<SettingsUser[]>([]);
+  const [users, setUsers] = useState<SettingsUser[]>([DEFAULT_USER]);
   const [editingUser, setEditingUser] = useState<SettingsUser | null>(null);
   const [deletingUser, setDeletingUser] = useState<SettingsUser | null>(null);
 
@@ -40,19 +36,13 @@ export default function SettingsPage() {
 
   // Delete form state
   const [deleteConfirmUsername, setDeleteConfirmUsername] = useState('');
+  const [deleteConfirmPassword, setDeleteConfirmPassword] = useState('');
   const [deleteCustomReason, setDeleteCustomReason] = useState('');
   const [deleteError, setDeleteError] = useState('');
 
-  // Select exactly 1 random user on load or refresh click
-  const pickRandomUser = () => {
-    const shuffled = [...POOL_OF_USERS].sort(() => 0.5 - Math.random());
-    setUsers(shuffled.slice(0, 1));
-  };
-
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Settings & Account — Bachelor Food";
-    pickRandomUser();
+    document.title = "Account Settings — Bachelor Food";
   }, []);
 
   const handleEditOpen = (user: SettingsUser) => {
@@ -86,14 +76,21 @@ export default function SettingsPage() {
   const handleDeleteOpen = (user: SettingsUser) => {
     setDeletingUser(user);
     setDeleteConfirmUsername('');
+    setDeleteConfirmPassword('');
     setDeleteCustomReason('');
     setDeleteError('');
   };
 
   const handleDeleteSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (deleteConfirmUsername !== deletingUser?.username) {
       setDeleteError(`Username does not match. Please enter exactly "${deletingUser?.username}"`);
+      return;
+    }
+
+    if (deleteConfirmPassword !== 'Admin@123') {
+      setDeleteError('Incorrect admin password. Please try again.');
       return;
     }
 
@@ -121,16 +118,9 @@ export default function SettingsPage() {
               Account Settings
             </h1>
             <p className="text-bf-muted text-sm mt-2">
-              Showing a randomized user account. Refresh the page or click "Shuffle User" to load a new random user.
+              Manage your profile credentials, configure email contacts, or delete your account.
             </p>
           </div>
-          
-          <button 
-            onClick={pickRandomUser}
-            className="btn btn-outline self-start sm:self-center flex items-center gap-2"
-          >
-            <RefreshCw size={16} /> Shuffle User
-          </button>
         </div>
 
         {/* User Card Container */}
@@ -184,8 +174,8 @@ export default function SettingsPage() {
           ) : (
             <div className="text-center py-12">
               <p className="text-bf-muted font-medium mb-4">User account deleted successfully.</p>
-              <button onClick={pickRandomUser} className="btn btn-primary">
-                Load New Random User
+              <button onClick={() => setUsers([DEFAULT_USER])} className="btn btn-primary">
+                Restore Account Profile
               </button>
             </div>
           )}
@@ -293,7 +283,7 @@ export default function SettingsPage() {
                   <ShieldAlert size={24} /> Confirm Account Deletion
                 </h2>
                 <p className="text-bf-muted text-xs mb-6">
-                  You are deleting the randomized user profile for <strong className="text-bf-ink">{deletingUser.name}</strong>.
+                  You are deleting the user profile for <strong className="text-bf-ink">{deletingUser.name}</strong>.
                 </p>
 
                 <form onSubmit={handleDeleteSubmit} className="space-y-5">
@@ -310,6 +300,21 @@ export default function SettingsPage() {
                       className="w-full bg-bf-cream/50 border border-bf-border-light rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-red-500 text-bf-ink"
                       required
                     />
+                  </div>
+
+                  {/* Enter Admin Password */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-bf-muted mb-2 flex items-center gap-1.5">
+                      <Lock size={12} className="text-bf-subtle" /> Enter Admin Password
+                    </label>
+                    <input 
+                      type="password"
+                      placeholder="Enter password"
+                      value={deleteConfirmPassword}
+                      onChange={(e) => setDeleteConfirmPassword(e.target.value)}
+                      className="w-full bg-bf-cream/50 border border-bf-border-light rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-red-500 text-bf-ink"
+                      required
+                    />
                     {deleteError && (
                       <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
                         <AlertCircle size={12} /> {deleteError}
@@ -320,7 +325,7 @@ export default function SettingsPage() {
                   {/* Reason Text Input */}
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-bf-muted mb-2">Reason for Deletion</label>
-                    <input
+                    <input 
                       type="text"
                       value={deleteCustomReason}
                       onChange={(e) => setDeleteCustomReason(e.target.value)}
