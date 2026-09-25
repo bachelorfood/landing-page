@@ -112,7 +112,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-10 pt-6 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4 text-white/35 text-xs">
-          <p>© {new Date().getFullYear()} Bachelor Food Home Kitchen Pvt. Ltd. All rights reserved.</p>
+          <p>Owned by INFIXHI TECH INNOVATIONS PRIVATE LIMITED. All rights reserved.</p>
           <div className="flex gap-6">
             <Link to="/terms#privacy" className="hover:text-white/50 transition-colors">Privacy</Link>
             <Link to="/terms" className="hover:text-white/50 transition-colors">Terms</Link>
